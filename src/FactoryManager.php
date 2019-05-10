@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\ImgMeta;
+namespace ImgMeta;
 
 /**
  * Description of FactoryManager
