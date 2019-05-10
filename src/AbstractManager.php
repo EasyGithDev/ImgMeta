@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-namespace App\ImgMeta;
+namespace ImgMeta;
 
-use App\ImgMeta\DataManager;
+use ImgMeta\DataManager;
 
 /**
  * Description of AbstractManager
