@@ -88,11 +88,22 @@ class IptcManager extends AbstractManager {
     /**
      * 
      */
-    const KEY_CODE = 1;
-    const KEY_NAME = 2;
+    const META_BY_KEY = 1;
+    const META_BY_NAME = 2;
 
-    public function __construct(IptcReader $streamReader) {
-        $this->streamReader = $streamReader;
+    protected $constToExclud = ['META_BY_KEY', 'META_BY_NAME'];
+
+    public function __construct(IptcReader $reader = null, IptcWriter $writer = null) {
+        $this->reader = $reader;
+        $this->writer = $writer;
+    }
+
+    public function getMetasByKey() {
+        return $this->getAssocMetas(self::META_BY_KEY);
+    }
+
+    public function getMetasByName() {
+        return $this->getAssocMetas(self::META_BY_NAME);
     }
 
     /**
@@ -103,7 +114,7 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return array|false
      */
-    public function getAssocMetas($keyType = self::KEY_CODE) {
+    public function getAssocMetas($keyType) {
         if (!$this->hasMeta) {
             return false;
         }
@@ -113,10 +124,11 @@ class IptcManager extends AbstractManager {
 
         $metas = [];
         foreach ($constants as $name => $tag) {
-            if ($name == 'KEY_CODE' || $name == 'KEY_NAME') {
+            if (in_array($name, $this->constToExclud)) {
                 continue;
             }
-            $key = ($keyType == self::KEY_CODE) ? $tag : $name;
+
+            $key = ($keyType == self::META_BY_KEY) ? $tag : $name;
             $metas[$key] = $this->fetchAll($tag);
         }
 
@@ -124,7 +136,63 @@ class IptcManager extends AbstractManager {
     }
 
     /**
-     * Return fisrt IPTC tag by tag name
+     * Set parameters you want to record in a particular tag "IPTC"
+     *
+     * @param Integer|const $tag  - Code or const of tag
+     * @param array|mixed   $data - Value of tag
+     *
+     * @return Iptc object
+     * @access public
+     */
+    public function set($tag, $data) {
+        $data = $this->_charset_decode($data);
+        $this->_meta["2#{$tag}"] = array($data);
+        $this->_hasMeta = true;
+        return $this;
+    }
+
+    /**
+     * adds an item at the beginning of the array
+     *
+     * @param Integer|const $tag  - Code or const of tag
+     * @param array|mixed   $data - Value of tag
+     *
+     * @return Iptc object
+     * @access public
+     */
+    public function prepend($tag, $data) {
+        $data = $this->_charset_decode($data);
+        if (!empty($this->_meta["2#{$tag}"])) {
+            array_unshift($this->_meta["2#{$tag}"], $data);
+            $data = $this->_meta["2#{$tag}"];
+        }
+        $this->_meta["2#{$tag}"] = array($data);
+        $this->_hasMeta = true;
+        return $this;
+    }
+
+    /**
+     * adds an item at the end of the array
+     *
+     * @param Integer|const $tag  - Code or const of tag
+     * @param array|mixed   $data - Value of tag
+     *
+     * @return Iptc object
+     * @access public
+     */
+    public function append($tag, $data) {
+        $data = $this->_charset_decode($data);
+        if (!empty($this->_meta["2#{$tag}"])) {
+            array_push($this->_meta["2#{$tag}"], $data);
+            $data = $this->_meta["2#{$tag}"];
+        }
+        $this->_meta["2#{$tag}"] = array($data);
+        $this->_hasMeta = true;
+        return $this;
+    }
+
+    /**
+     * Return first IPTC tag by tag name
      *
      * @param Integer|const $tag - Name of tag
      *

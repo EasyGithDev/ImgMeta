@@ -17,7 +17,6 @@ abstract class IptcReader implements ImgReader {
 
     public static function getReader($stream) {
 
-
         if (filter_var($stream, FILTER_VALIDATE_URL)) {
             return new IptcUrlReader($stream);
         } else if (exif_imagetype('data://image/jpeg;base64,' . base64_encode($stream)) !== false) {

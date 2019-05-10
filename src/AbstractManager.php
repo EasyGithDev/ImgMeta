@@ -17,7 +17,8 @@ use ImgMeta\DataManager;
  */
 abstract class AbstractManager implements DataManager {
 
-    protected $streamReader = null;
+    protected $reader = null;
+    protected $writer = null;
     protected $hasMeta = false;
     protected $meta = null;
 
@@ -31,7 +32,7 @@ abstract class AbstractManager implements DataManager {
      */
     public function read() {
 
-        if (($meta = $this->streamReader->read()) !== false) {
+        if (($meta = $this->reader->read()) !== false) {
             $this->hasMeta = true;
             $this->meta = $meta;
         }
