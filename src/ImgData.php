@@ -9,18 +9,41 @@ namespace ImgMeta;
  */
 class ImgData {
 
-    public static function getMetas($stream) {
+    protected $exif = null;
+    protected $iptc = null;
+
+    public function __construct($stream) {
+        $this->exif = static::getExifFromStream($stream);
+        $this->iptc = static::getIptcFromStream($stream);
+    }
+
+    public function getMetas() {
         return [
-            'EXIF' => static::getExif($stream)->read()->getMetas(),
-            'IPTC' => static::getIptc($stream)->read()->getMetas()
+            'EXIF' => ($this->exif) ? $this->exif->getMetas() : false,
+            'IPTC' => ($this->iptc) ? $this->iptc->getMetas() : false
         ];
     }
 
-    public static function getExif($stream) {
+    public function read() {
+        $this->exif->read();
+        $this->iptc->read();
+
+        return $this;
+    }
+
+    public function getExif() {
+        return $this->exif;
+    }
+
+    public function getIptc() {
+        return $this->iptc;
+    }
+
+    public static function getExifFromStream($stream) {
         return FactoryManager::getManager(ExifReader::getReader($stream), FactoryManager::EXIF);
     }
 
-    public static function getIptc($stream) {
+    public static function getIptcFromStream($stream) {
         return FactoryManager::getManager(IptcReader::getReader($stream), FactoryManager::IPTC);
     }
 
