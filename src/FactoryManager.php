@@ -13,12 +13,12 @@ class FactoryManager {
     const EXIF = 1;
     const IPTC = 2;
 
-    public static function getManager($stream, $manager) {
+    public static function getManager($manager) {
         switch ($manager) {
             case self::EXIF:
-                return new ExifManager($stream);
+                return new ExifManager();
             case self::IPTC:
-                return new IptcManager($stream);
+                return new IptcManager();
         }
     }
 

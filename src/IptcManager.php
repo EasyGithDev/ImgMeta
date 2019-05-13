@@ -93,11 +93,6 @@ class IptcManager extends AbstractManager {
 
     protected $constToExclud = ['META_BY_KEY', 'META_BY_NAME'];
 
-    public function __construct(IptcReader $reader = null, IptcWriter $writer = null) {
-        $this->reader = $reader;
-        $this->writer = $writer;
-    }
-
     public function getMetasByKey() {
         return $this->getAssocMetas(self::META_BY_KEY);
     }

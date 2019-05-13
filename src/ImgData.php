@@ -12,9 +12,9 @@ class ImgData {
     protected $exif = null;
     protected $iptc = null;
 
-    public function __construct($stream) {
-        $this->exif = static::getExifFromStream($stream);
-        $this->iptc = static::getIptcFromStream($stream);
+    public function __construct() {
+        $this->exif = static::createExifManager();
+        $this->iptc = static::createIptcManager();
     }
 
     public function getMetas() {
@@ -25,10 +25,10 @@ class ImgData {
         ];
     }
 
-    public function read() {
+    public function read($stream) {
 
-        $this->exif->read();
-        $this->iptc->read();
+        $this->exif->read(ExifReader::getReader($stream));
+        $this->iptc->read(IptcReader::getReader($stream));
 
         return $this;
     }
@@ -41,12 +41,12 @@ class ImgData {
         return $this->iptc;
     }
 
-    public static function getExifFromStream($stream) {
-        return FactoryManager::getManager(ExifReader::getReader($stream), FactoryManager::EXIF);
+    public static function createExifManager() {
+        return FactoryManager::getManager(FactoryManager::EXIF);
     }
 
-    public static function getIptcFromStream($stream) {
-        return FactoryManager::getManager(IptcReader::getReader($stream), FactoryManager::IPTC);
+    public static function createIptcManager() {
+        return FactoryManager::getManager(FactoryManager::IPTC);
     }
 
 }

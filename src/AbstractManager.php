@@ -15,10 +15,9 @@ use ImgMeta\DataManager;
  *
  * @author fbrusciano
  */
-abstract class AbstractManager implements DataManager {
+abstract class AbstractManager implements InterfaceManager {
 
-    protected $reader = null;
-    protected $writer = null;
+
     protected $hasMeta = false;
     protected $meta = null;
 
@@ -30,9 +29,9 @@ abstract class AbstractManager implements DataManager {
      * @access public
      * @return IptcManager
      */
-    public function read() {
+    public function read(ImgReader $reader) {
 
-        if (($meta = $this->reader->read()) !== false) {
+        if (($meta = $reader->read()) !== false) {
             $this->hasMeta = true;
             $this->meta = $meta;
         }
