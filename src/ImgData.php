@@ -18,6 +18,7 @@ class ImgData {
     }
 
     public function getMetas() {
+
         return [
             'EXIF' => ($this->exif) ? $this->exif->getMetas() : false,
             'IPTC' => ($this->iptc) ? $this->iptc->getMetas() : false
@@ -25,6 +26,7 @@ class ImgData {
     }
 
     public function read() {
+
         $this->exif->read();
         $this->iptc->read();
 

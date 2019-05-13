@@ -9,8 +9,8 @@ namespace ImgMeta;
  */
 class ExifManager extends AbstractManager {
 
-    public function __construct(ExifReader $streamReader) {
-        $this->streamReader = $streamReader;
+    public function __construct(ExifReader $reader) {
+        $this->reader = $reader;
     }
 
     public function fetch($tag) {
