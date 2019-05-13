@@ -140,9 +140,10 @@ class IptcManager extends AbstractManager {
      * @access public
      */
     public function set($tag, $data) {
-        $data = $this->_charset_decode($data);
-        $this->_meta["2#{$tag}"] = array($data);
-        $this->_hasMeta = true;
+        $data = $this->charsetDecode($data);
+        $this->meta["2#{$tag}"] = [$data];
+        $this->hasMeta = true;
+
         return $this;
     }
 
@@ -156,13 +157,13 @@ class IptcManager extends AbstractManager {
      * @access public
      */
     public function prepend($tag, $data) {
-        $data = $this->_charset_decode($data);
-        if (!empty($this->_meta["2#{$tag}"])) {
-            array_unshift($this->_meta["2#{$tag}"], $data);
-            $data = $this->_meta["2#{$tag}"];
+        $data = $this->charsetDecode($data);
+        if (!empty($this->meta["2#{$tag}"])) {
+            array_unshift($this->meta["2#{$tag}"], $data);
+            $data = $this->meta["2#{$tag}"];
         }
-        $this->_meta["2#{$tag}"] = array($data);
-        $this->_hasMeta = true;
+        $this->meta["2#{$tag}"] = array($data);
+        $this->hasMeta = true;
         return $this;
     }
 
@@ -176,13 +177,13 @@ class IptcManager extends AbstractManager {
      * @access public
      */
     public function append($tag, $data) {
-        $data = $this->_charset_decode($data);
-        if (!empty($this->_meta["2#{$tag}"])) {
-            array_push($this->_meta["2#{$tag}"], $data);
-            $data = $this->_meta["2#{$tag}"];
+        $data = $this->charsetDecode($data);
+        if (!empty($this->meta["2#{$tag}"])) {
+            array_push($this->meta["2#{$tag}"], $data);
+            $data = $this->meta["2#{$tag}"];
         }
-        $this->_meta["2#{$tag}"] = array($data);
-        $this->_hasMeta = true;
+        $this->meta["2#{$tag}"] = array($data);
+        $this->hasMeta = true;
         return $this;
     }
 
@@ -219,6 +220,94 @@ class IptcManager extends AbstractManager {
             return $this->charsetEncode($this->meta["2#{$tag}"]);
         }
         return false;
+    }
+
+    /**
+     * returns a string with the binary code
+     *
+     * @access public
+     * @return string
+     */
+    public function binary() {
+        $iptc = '';
+        foreach (array_keys($this->meta) as $key) {
+            $tag = str_replace("2#", "", $key);
+            foreach ($this->meta[$key] as $value) {
+                $iptc .= $this->iptcMakeTag(2, $tag, $value);
+            }
+        }
+        return $iptc;
+    }
+
+    /**
+     * Assemble the tags "IPTC" in character "ascii"
+     *
+     * @param Integer $rec - Type of tag ex. 2
+     * @param Integer $dat - code of tag ex. 025 or 000 etc
+     * @param mixed   $val - any caracterer
+     *
+     * @access public
+     * @return binary source
+     */
+    public function iptcMakeTag($rec, $dat, $val) {
+        //beginning of the binary string
+        $iptcTag = chr(0x1c) . chr($rec) . chr($dat);
+        if (is_array($val)) {
+            $src = '';
+            foreach ($val as $item) {
+                $len = mb_strlen($item);
+                $src .= $iptcTag . $this->_testBitSize($len) . $item;
+            }
+            return $src;
+        }
+        $len = mb_strlen($val);
+        $src = $iptcTag . $this->_testBitSize($len) . $val;
+        return $src;
+    }
+
+    /**
+     * create the new image file already
+     * with the new "IPTC" recorded
+     *
+     * @access public
+     * @return boolean
+     */
+    public function write(ImgWriter $writer) {
+        return $writer->write($this->binary());
+    }
+
+    /**
+     * completely remove all tags "IPTC" image
+     *
+     * @access public
+     * @return void
+     */
+    public function removeAllTags() {
+        $this->hasMeta = false;
+        $this->meta = [];
+    }
+
+    /**
+     * It proper test to ensure that
+     * the size of the values are supported within the
+     *
+     * @param Integer $len - size of the character
+     *
+     * @access public
+     * @return boolean
+     */
+    private function _testBitSize($len) {
+        if ($len < 0x8000) {
+            return
+                    chr($len >> 8) .
+                    chr($len & 0xff);
+        }
+        return
+                chr(0x1c) . chr(0x04) .
+                chr(($len >> 24) & 0xff) .
+                chr(($len >> 16) & 0xff) .
+                chr(($len >> 8 ) & 0xff) .
+                chr(($len ) & 0xff);
     }
 
     /**

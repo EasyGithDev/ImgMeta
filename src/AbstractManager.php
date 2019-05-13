@@ -17,17 +17,16 @@ use ImgMeta\DataManager;
  */
 abstract class AbstractManager implements InterfaceManager {
 
-
     protected $hasMeta = false;
     protected $meta = null;
 
     /**
      * Read the image stream
      * 
-     * @example $iptc->read();
+     * @example $iptc->read($reader);
      * 
      * @access public
-     * @return IptcManager
+     * @return Manager
      */
     public function read(ImgReader $reader) {
 
@@ -38,6 +37,16 @@ abstract class AbstractManager implements InterfaceManager {
 
         return $this;
     }
+
+    /**
+     * Write the image stream
+     * 
+     * @example $iptc->write($writer, $data);
+     * 
+     * @access public
+     * @return Manager
+     */
+    public abstract function write(ImgWriter $writer);
 
     /**
      * Return the meta array

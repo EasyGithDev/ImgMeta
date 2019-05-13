@@ -17,4 +17,8 @@ class ExifManager extends AbstractManager {
         return array_key_exists($tag, $this->meta) ? $this->meta[$tag] : false;
     }
 
+    public function write(ImgWriter $writer) {
+        return false;
+    }
+    
 }
