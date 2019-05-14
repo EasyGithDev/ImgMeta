@@ -21,7 +21,7 @@ class ImgData {
 
         return [
             'EXIF' => ($this->exif) ? $this->exif->getMetas() : false,
-            'IPTC' => ($this->iptc) ? $this->iptc->getMetas() : false
+            'IPTC' => ($this->iptc) ? $this->iptc->getMetasByName() : false
         ];
     }
 

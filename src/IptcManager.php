@@ -109,7 +109,7 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return array|false
      */
-    public function getAssocMetas($keyType) {
+    public function getAssocMetas($keyType, $showEmtyTag = false) {
         if (!$this->hasMeta) {
             return false;
         }
@@ -124,7 +124,9 @@ class IptcManager extends AbstractManager {
             }
 
             $key = ($keyType == self::META_BY_KEY) ? $tag : $name;
-            $metas[$key] = $this->fetchAll($tag);
+            if (($res = $this->fetchAll($tag)) !== false || $showEmtyTag) {
+                $metas[$key] = $res;
+            }
         }
 
         return $metas;
