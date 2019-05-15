@@ -31,4 +31,33 @@ class ExifManager extends AbstractManager {
         return false;
     }
 
+    /**
+     * Return the Exif associative array
+     *
+     * @example $iptc->getAssocMetas();
+     *
+     * @access public
+     * @return array|false
+     */
+    public function getAssocMetas() {
+        if (!$this->hasMeta) {
+            return false;
+        }
+
+        return $this->array_flatten($this->meta);
+    }
+
+    protected function array_flatten($array, $k = '') {
+        $return = [];
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $return = $return + $this->array_flatten($value, $key);
+            } else {
+                $finalKey = ($k) ? $k . '.' . $key : $key;
+                $return[$finalKey] = $value;
+            }
+        }
+        return $return;
+    }
+
 }

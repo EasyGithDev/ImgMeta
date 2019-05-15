@@ -18,10 +18,9 @@ class ImgData {
     }
 
     public function getMetas() {
-
         return [
-            'EXIF' => ($this->exif) ? $this->exif->getMetas() : false,
-            'IPTC' => ($this->iptc) ? $this->iptc->getMetasByName() : false
+            'exif' => ($this->exif) ? $this->exif->getAssocMetas() : false,
+            'iptc' => ($this->iptc) ? $this->iptc->getMetasByName() : false
         ];
     }
 
