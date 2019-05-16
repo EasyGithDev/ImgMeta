@@ -17,15 +17,19 @@ abstract class IptcReader implements ImgReader {
 
     public static function getReader($stream) {
 
+        $reader = null;
+
         if (filter_var($stream, FILTER_VALIDATE_URL)) {
-            return new IptcUrlReader($stream);
+            $reader = new IptcUrlReader($stream);
+        } else if (($pos = mb_strpos($stream, 'data:image/jpeg;base64')) !== false) {
+            $reader = new IptcStringReader(str_replace('data:image/jpeg', 'data://image/jpeg', $stream));
         } else if (exif_imagetype('data://image/jpeg;base64,' . base64_encode($stream)) !== false) {
-            return new IptcStringReader($stream);
+            $reader = new IptcStringReader($stream);
         } else if (file_exists($stream)) {
-            return new IptcFileReader($stream);
-        } else {
-            return null;
+            $reader = new IptcFileReader($stream);
         }
+
+        return $reader;
     }
 
     public abstract function read();

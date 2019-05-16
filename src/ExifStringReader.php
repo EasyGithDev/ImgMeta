@@ -22,7 +22,6 @@ class ExifStringReader extends ExifReader {
     }
 
     public function read() {
-        $stream = 'data://image/jpeg;base64,' . base64_encode($this->stream);
         return @exif_read_data($stream);
     }
 
