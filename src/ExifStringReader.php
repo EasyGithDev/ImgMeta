@@ -22,7 +22,7 @@ class ExifStringReader extends ExifReader {
     }
 
     public function read() {
-        return @exif_read_data($stream);
+        return @exif_read_data($this->stream);
     }
 
 }

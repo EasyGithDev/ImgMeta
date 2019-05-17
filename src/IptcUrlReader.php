@@ -16,7 +16,6 @@ namespace ImgMeta;
 class IptcUrlReader extends IptcStringReader {
 
     public function __construct($stream) {
-
         parent::__construct(file_get_contents($stream));
     }
 

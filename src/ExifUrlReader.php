@@ -16,7 +16,7 @@ namespace ImgMeta;
 class ExifUrlReader extends ExifStringReader {
 
     public function __construct($stream) {
-        parent::__construct(file_get_contents($stream));
+        parent::__construct('data://image/jpeg;base64,' . base64_encode(file_get_contents($stream)));
     }
 
 }
