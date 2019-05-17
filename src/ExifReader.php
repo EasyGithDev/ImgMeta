@@ -28,7 +28,7 @@ abstract class ExifReader implements ImgReader {
         } else if (file_exists($stream)) {
             $reader = new ExifFileReader($stream);
         }
-
+        
         return $reader;
     }
 
