@@ -47,6 +47,21 @@ class ExifManager extends AbstractManager {
         return $this->array_flatten($this->meta);
     }
 
+     public function getPosition() {
+        if (!$this->hasMeta) {
+            return false;
+        }
+
+        if (($latitude = $this->fetch('GPSLatitude')) !== false && ($longitude = $this->fetch('GPSLongitude')) !== false) {
+            return [
+                'GPSLatitude' => $latitude,
+                'GPSLongitude' => $longitude,
+            ];
+        }
+
+        return false;
+    }
+    
     protected function array_flatten($array, $k = '') {
         $return = [];
         foreach ($array as $key => $value) {
