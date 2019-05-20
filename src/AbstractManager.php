@@ -8,8 +8,6 @@
 
 namespace ImgMeta;
 
-use ImgMeta\DataManager;
-
 /**
  * Description of AbstractManager
  *

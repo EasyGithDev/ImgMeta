@@ -2,6 +2,9 @@
 
 namespace ImgMeta;
 
+use ImgMeta\Exif\ExifReader;
+use ImgMeta\Iptc\IptcReader;
+
 /**
  * Description of ImgData
  *
@@ -13,8 +16,8 @@ class ImgData {
     protected $iptc = null;
 
     public function __construct() {
-        $this->exif = static::createExifManager();
-        $this->iptc = static::createIptcManager();
+        $this->exif = $this->createExifManager();
+        $this->iptc = $this->createIptcManager();
     }
 
     public function getMetas() {
@@ -40,11 +43,11 @@ class ImgData {
         return $this->iptc;
     }
 
-    public static function createExifManager() {
+    public function createExifManager() {
         return FactoryManager::getManager(FactoryManager::EXIF);
     }
 
-    public static function createIptcManager() {
+    public function createIptcManager() {
         return FactoryManager::getManager(FactoryManager::IPTC);
     }
 

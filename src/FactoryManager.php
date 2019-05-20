@@ -3,6 +3,9 @@
 
 namespace ImgMeta;
 
+use ImgMeta\Exif\ExifManager;
+use ImgMeta\Iptc\IptcManager;
+
 /**
  * Description of FactoryManager
  *
