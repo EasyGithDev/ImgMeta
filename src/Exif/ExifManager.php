@@ -4,6 +4,7 @@ namespace ImgMeta\Exif;
 
 use ImgMeta\AbstractManager;
 use ImgMeta\Exif\ExifTags;
+use ImgMeta\ImgWriter;
 
 /**
  * Description of ExifManager

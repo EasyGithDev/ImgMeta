@@ -4,6 +4,7 @@ namespace ImgMeta\Iptc;
 
 use ImgMeta\Iptc\IptcTags;
 use ImgMeta\AbstractManager;
+use ImgMeta\ImgWriter;
 
 /**
  * Description of IptcManager
