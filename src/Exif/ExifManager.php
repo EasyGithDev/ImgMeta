@@ -18,13 +18,16 @@ class ExifManager extends AbstractManager {
             return false;
         }
 
+        $tag = trim($tag);
+        $tag = str_replace('0x', '', $tag);
+
         // check if $tag is hexa
         if (ctype_xdigit($tag)) {
             $tagName = exif_tagname(hexdec($tag));
         } else {
             $tagName = $tag;
         }
-        
+
         return array_key_exists($tagName, $this->meta) ? $this->meta[$tagName] : false;
     }
 
