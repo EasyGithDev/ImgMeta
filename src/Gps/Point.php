@@ -26,7 +26,7 @@ class Point {
     }
 
     public function getDecimal() {
-        return ($this->deg) + ($this->min / 60) + ($this->sec / 3600);
+        return round(($this->deg) + ($this->min / 60) + ($this->sec / 3600), 6);
     }
 
     public static function fromArray(array $point) {
