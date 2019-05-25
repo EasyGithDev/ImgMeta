@@ -13,16 +13,18 @@ namespace ImgMeta\Exif;
  *
  * @author fbrusciano
  */
-class ExifStringReader extends ExifReader {
+class ExifStringReader extends ExifReader
+{
 
     public $stream;
 
-    public function __construct($stream) {
+    public function __construct($stream)
+    {
         $this->stream = $stream;
     }
 
-    public function read() {
+    public function read()
+    {
         return @exif_read_data($this->stream);
     }
-
 }

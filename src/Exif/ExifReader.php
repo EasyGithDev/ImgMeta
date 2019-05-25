@@ -15,9 +15,11 @@ use ImgMeta\ImgReader;
  *
  * @author fbrusciano
  */
-abstract class ExifReader implements ImgReader {
+abstract class ExifReader implements ImgReader
+{
 
-    public static function getReader($stream) {
+    public static function getReader($stream)
+    {
 
         $reader = null;
 
@@ -30,7 +32,7 @@ abstract class ExifReader implements ImgReader {
         } else if (file_exists($stream)) {
             $reader = new ExifFileReader($stream);
         }
-        
+
         return $reader;
     }
 

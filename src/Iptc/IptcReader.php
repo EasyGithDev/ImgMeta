@@ -15,9 +15,11 @@ use ImgMeta\ImgReader;
  *
  * @author fbrusciano
  */
-abstract class IptcReader implements ImgReader {
+abstract class IptcReader implements ImgReader
+{
 
-    public static function getReader($stream) {
+    public static function getReader($stream)
+    {
 
         $reader = null;
 

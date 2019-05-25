@@ -11,12 +11,14 @@ use ImgMeta\Iptc\IptcManager;
  *
  * @author fbrusciano
  */
-class FactoryManager {
+class FactoryManager
+{
 
     const EXIF = 1;
     const IPTC = 2;
 
-    public static function getManager($manager) {
+    public static function getManager($manager)
+    {
         switch ($manager) {
             case self::EXIF:
                 return new ExifManager();
@@ -24,5 +26,4 @@ class FactoryManager {
                 return new IptcManager();
         }
     }
-
 }

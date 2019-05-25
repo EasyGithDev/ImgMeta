@@ -13,15 +13,18 @@ namespace ImgMeta\Iptc;
  *
  * @author fbrusciano
  */
-class IptcStringReader extends IptcReader {
+class IptcStringReader extends IptcReader
+{
 
     public $stream;
 
-    public function __construct($stream) {
+    public function __construct($stream)
+    {
         $this->stream = $stream;
     }
 
-    public function read() {
+    public function read()
+    {
         $size = getimagesizefromstring($this->stream, $imageinfo);
         if (!isset($imageinfo["APP13"])) {
             return false;
@@ -29,5 +32,4 @@ class IptcStringReader extends IptcReader {
 
         return iptcparse($imageinfo["APP13"]);
     }
-
 }

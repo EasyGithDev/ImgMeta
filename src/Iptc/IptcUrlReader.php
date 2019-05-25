@@ -13,10 +13,11 @@ namespace ImgMeta\Iptc;
  *
  * @author fbrusciano
  */
-class IptcUrlReader extends IptcStringReader {
+class IptcUrlReader extends IptcStringReader
+{
 
-    public function __construct($stream) {
+    public function __construct($stream)
+    {
         parent::__construct(file_get_contents($stream));
     }
-
 }

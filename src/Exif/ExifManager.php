@@ -3,7 +3,6 @@
 namespace ImgMeta\Exif;
 
 use ImgMeta\AbstractManager;
-use ImgMeta\Exif\ExifTags;
 use ImgMeta\ImgWriter;
 
 /**
@@ -11,9 +10,11 @@ use ImgMeta\ImgWriter;
  *
  * @author fbrusciano
  */
-class ExifManager extends AbstractManager {
+class ExifManager extends AbstractManager
+{
 
-    public function fetch($tag) {
+    public function fetch($tag)
+    {
         if (!$this->hasMeta) {
             return false;
         }
@@ -41,7 +42,8 @@ class ExifManager extends AbstractManager {
      * @param \ImgMeta\ImgWriter $writer
      * @return boolean
      */
-    public function write(ImgWriter $writer) {
+    public function write(ImgWriter $writer)
+    {
         return false;
     }
 
@@ -53,7 +55,8 @@ class ExifManager extends AbstractManager {
      * @access public
      * @return array|false
      */
-    public function getAssocMetas() {
+    public function getAssocMetas()
+    {
         if (!$this->hasMeta) {
             return false;
         }
@@ -61,7 +64,8 @@ class ExifManager extends AbstractManager {
         return $this->array_flatten($this->meta);
     }
 
-    public function getPosition() {
+    public function getPosition()
+    {
         if (!$this->hasMeta) {
             return false;
         }
@@ -76,7 +80,8 @@ class ExifManager extends AbstractManager {
         return false;
     }
 
-    protected function array_flatten($array, $k = '') {
+    protected function array_flatten($array, $k = '')
+    {
         $return = [];
         foreach ($array as $key => $value) {
             if (is_array($value)) {
@@ -88,5 +93,4 @@ class ExifManager extends AbstractManager {
         }
         return $return;
     }
-
 }

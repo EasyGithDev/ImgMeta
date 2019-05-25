@@ -11,7 +11,8 @@ use ImgMeta\ImgWriter;
  *
  * @author fbrusciano
  */
-class IptcManager extends AbstractManager {
+class IptcManager extends AbstractManager
+{
 
     /**
      * 
@@ -19,11 +20,13 @@ class IptcManager extends AbstractManager {
     const META_BY_KEY = 1;
     const META_BY_NAME = 2;
 
-    public function getMetasByKey() {
+    public function getMetasByKey()
+    {
         return $this->getAssocMetas(self::META_BY_KEY);
     }
 
-    public function getMetasByName() {
+    public function getMetasByName()
+    {
         return $this->getAssocMetas(self::META_BY_NAME);
     }
 
@@ -35,7 +38,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return array|false
      */
-    public function getAssocMetas($keyType, $showEmtyTag = false) {
+    public function getAssocMetas($keyType, $showEmtyTag = false)
+    {
         if (!$this->hasMeta) {
             return false;
         }
@@ -63,7 +67,8 @@ class IptcManager extends AbstractManager {
      * @return Iptc object
      * @access public
      */
-    public function set($tag, $data) {
+    public function set($tag, $data)
+    {
         $data = $this->charsetDecode($data);
         $this->meta["2#{$tag}"] = [$data];
         $this->hasMeta = true;
@@ -80,7 +85,8 @@ class IptcManager extends AbstractManager {
      * @return Iptc object
      * @access public
      */
-    public function prepend($tag, $data) {
+    public function prepend($tag, $data)
+    {
         $data = $this->charsetDecode($data);
         if (!empty($this->meta["2#{$tag}"])) {
             array_unshift($this->meta["2#{$tag}"], $data);
@@ -100,7 +106,8 @@ class IptcManager extends AbstractManager {
      * @return Iptc object
      * @access public
      */
-    public function append($tag, $data) {
+    public function append($tag, $data)
+    {
         $data = $this->charsetDecode($data);
         if (!empty($this->meta["2#{$tag}"])) {
             array_push($this->meta["2#{$tag}"], $data);
@@ -121,7 +128,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return mixed|false
      */
-    public function fetch($tag) {
+    public function fetch($tag)
+    {
         if (isset($this->meta["2#{$tag}"])) {
             $result = $this->charsetEncode($this->meta["2#{$tag}"][0]);
             return (is_array($result)) ? array_shift($result) : $result;
@@ -139,7 +147,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return mixed|false
      */
-    public function fetchAll($tag) {
+    public function fetchAll($tag)
+    {
         if (isset($this->meta["2#{$tag}"])) {
             return $this->charsetEncode($this->meta["2#{$tag}"]);
         }
@@ -152,7 +161,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return string
      */
-    public function binary() {
+    public function binary()
+    {
         $iptc = '';
         foreach (array_keys($this->meta) as $key) {
             $tag = str_replace("2#", "", $key);
@@ -173,7 +183,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return binary source
      */
-    public function iptcMakeTag($rec, $dat, $val) {
+    public function iptcMakeTag($rec, $dat, $val)
+    {
         //beginning of the binary string
         $iptcTag = chr(0x1c) . chr($rec) . chr($dat);
         if (is_array($val)) {
@@ -196,7 +207,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return boolean
      */
-    public function write(ImgWriter $writer) {
+    public function write(ImgWriter $writer)
+    {
         return $writer->write($this->binary());
     }
 
@@ -206,7 +218,8 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return void
      */
-    public function removeAllTags() {
+    public function removeAllTags()
+    {
         $this->hasMeta = false;
         $this->meta = [];
     }
@@ -220,18 +233,19 @@ class IptcManager extends AbstractManager {
      * @access public
      * @return boolean
      */
-    private function _testBitSize($len) {
+    private function _testBitSize($len)
+    {
         if ($len < 0x8000) {
             return
-                    chr($len >> 8) .
-                    chr($len & 0xff);
+                chr($len >> 8) .
+                chr($len & 0xff);
         }
         return
-                chr(0x1c) . chr(0x04) .
-                chr(($len >> 24) & 0xff) .
-                chr(($len >> 16) & 0xff) .
-                chr(($len >> 8 ) & 0xff) .
-                chr(($len ) & 0xff);
+            chr(0x1c) . chr(0x04) .
+            chr(($len >> 24) & 0xff) .
+            chr(($len >> 16) & 0xff) .
+            chr(($len >> 8) & 0xff) .
+            chr(($len) & 0xff);
     }
 
     /**
@@ -241,7 +255,8 @@ class IptcManager extends AbstractManager {
      * @access private
      * @return string decoded string
      */
-    private function charsetDecode($data) {
+    private function charsetDecode($data)
+    {
         $result = [];
         if (is_array($data)) {
             foreach (new \RecursiveIteratorIterator(new \RecursiveArrayIterator($data)) as $value) {
@@ -260,7 +275,8 @@ class IptcManager extends AbstractManager {
      * @access private
      * @return string encoded string
      */
-    private function charsetEncode($data) {
+    private function charsetEncode($data)
+    {
         $result = [];
         if (is_array($data)) {
             foreach (new \RecursiveIteratorIterator(new \RecursiveArrayIterator($data)) as $value) {
@@ -271,5 +287,4 @@ class IptcManager extends AbstractManager {
         }
         return $result;
     }
-
 }

@@ -13,7 +13,8 @@ namespace ImgMeta\Iptc;
  *
  * @author fbrusciano
  */
-class IptcTags {
+class IptcTags
+{
 
     /**
      * https://iptc.org/std/photometadata/specification/IPTC-PhotoMetadata
@@ -90,5 +91,4 @@ class IptcTags {
     const DocumentHistory = '231';
     const ExifCameraInfo = '232';
     const CatalogSets = '255';
-
 }

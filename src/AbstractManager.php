@@ -13,10 +13,11 @@ namespace ImgMeta;
  *
  * @author fbrusciano
  */
-abstract class AbstractManager implements InterfaceManager {
+abstract class AbstractManager implements InterfaceManager
+{
 
     protected $hasMeta = false;
-    protected $meta = null;
+    protected $meta = [];
 
     /**
      * Read the image stream
@@ -26,7 +27,8 @@ abstract class AbstractManager implements InterfaceManager {
      * @access public
      * @return Manager
      */
-    public function read(ImgReader $reader) {
+    public function read(ImgReader $reader)
+    {
 
         if (($meta = $reader->read()) !== false) {
             $this->hasMeta = true;
@@ -54,7 +56,8 @@ abstract class AbstractManager implements InterfaceManager {
      * @access public
      * @return array|false
      */
-    public function getMetas() {
+    public function getMetas()
+    {
         return ($this->hasMeta) ? $this->meta : false;
     }
 

@@ -12,7 +12,8 @@ namespace ImgMeta;
  *
  * @author fbrusciano
  */
-interface DataManager {
+interface DataManager
+{
 
     public function read();
 

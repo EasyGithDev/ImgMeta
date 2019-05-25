@@ -12,7 +12,8 @@ namespace ImgMeta;
  *
  * @author fbrusciano
  */
-interface ImgReader {
+interface ImgReader
+{
 
     public function read();
 }

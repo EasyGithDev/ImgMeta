@@ -13,7 +13,8 @@ namespace ImgMeta\Exif;
  *
  * @author fbrusciano
  */
-class ExifTags {
+class ExifTags
+{
 
     /**
      * https://sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html
@@ -469,5 +470,4 @@ class ExifTags {
     const Brightness = '0xfe53';
     const Smoothness = '0xfe57';
     const MoireFilter = '0xfe58';
-
 }
