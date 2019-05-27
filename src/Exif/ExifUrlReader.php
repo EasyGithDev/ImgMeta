@@ -13,11 +13,15 @@ namespace ImgMeta\Exif;
  *
  * @author fbrusciano
  */
-class ExifUrlReader extends ExifStringReader
-{
+class ExifUrlReader extends ExifStringReader {
 
-    public function __construct($stream)
-    {
-        parent::__construct('data://image/jpeg;base64,' . base64_encode(file_get_contents($stream)));
+    public function __construct($stream) {
+        try {
+            $content = file_get_contents($stream);
+        } catch (\Exception $e) {
+            $content = '';
+        }
+        parent::__construct('data://image/jpeg;base64,' . base64_encode($content));
     }
+
 }

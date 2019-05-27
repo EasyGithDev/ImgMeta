@@ -25,7 +25,7 @@ class IptcStringReader extends IptcReader
 
     public function read()
     {
-        $size = getimagesizefromstring($this->stream, $imageinfo);
+        $size = @getimagesizefromstring($this->stream, $imageinfo);
         if (!isset($imageinfo["APP13"])) {
             return false;
         }
