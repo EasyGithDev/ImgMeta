@@ -11,26 +11,31 @@ $stream = 'http://domain/image.jpg';
 
 
 ### Exif and Iptc
-
 $imgData = new ImgData();
+
 dump($imgData->read($stream)->getMetas($stream));
 
 ### Exif
 
 #### Working with Exif only
 $imgData = new ImgData();
+
 $exifManager = $imgData->createExifManager();
+
 $exifManager->read(ExifReader::getReader($stream));
 
 dump($exifManager->getMetas());
 
 #### Fetch one tag
 dump($exifManager->fetch(ExifTags::Copyright));
+
 dump($exifManager->fetch('Copyright'));
 
 #### Fetch GPS infos
 $latitude = $exifManager->fetch('GPSLatitude');
+
 $longitude = $exifManager->fetch('GPSLongitude');
+
 dump($latitude, ' ', $longitude);
 
 #### Using helper
@@ -41,7 +46,9 @@ dump($exifManager->getPosition());
 
 #### Working on IPTC only
 $imgData = new ImgData();
+
 $iptcManager = $imgData->createIptcManager();
+
 $iptcManager->read(IptcReader::getReader($stream));
 
 
