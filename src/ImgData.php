@@ -33,7 +33,7 @@ class ImgData
     public function read($stream)
     {
 
-        $this->exif->read(ExifReader::getReader($stream));
+        $this->exif->read(ExifReader::getReader($stream))->sanitize();
         $this->iptc->read(IptcReader::getReader($stream));
 
         return $this;
