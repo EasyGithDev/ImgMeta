@@ -68,7 +68,7 @@ dump($iptcManager->getAssocMetas(IptcManager::META_BY_NAME, true));
 #### Fetch one tag, datas are flatten
 dump($iptcManager->fetch(IptcTags::Country_PrimaryLocationName));
 
-#### Fetch one tag, datas ara originals
+#### Fetch one tag, datas are originals
 dump($iptcManager->fetchAll(IptcTags::Country_PrimaryLocationName));
 
 
