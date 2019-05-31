@@ -86,7 +86,12 @@ abstract class AbstractManager implements InterfaceManager
             /x
 END;
 
-            $this->meta[$key] = preg_replace($regex, '$1', $value);
+            if(is_array($value)) {
+                continue;
+            }
+            $this->meta[$key] = preg_replace($regex, 
+            '$1', 
+            $value);
         }
 
         return $this;
