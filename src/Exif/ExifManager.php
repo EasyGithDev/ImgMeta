@@ -81,21 +81,6 @@ class ExifManager extends AbstractManager
         return false;
     }
 
-
-    public function getThumbnail()
-    {
-
-        if (!$this->hasMeta) {
-            return false;
-        }
-
-        if ($this->fetch(ExifTags::ThumbnailLength ) === false) {
-            return false;
-        }
-
-        return exif_thumbnail($this->stream, $width, $height, $type);
-    }
-
     protected function array_flatten($array, $k = '')
     {
         $return = [];
