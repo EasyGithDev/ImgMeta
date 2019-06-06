@@ -22,7 +22,13 @@ class Orientation
     // 270 degrees, mirrored – image is on its far side and flipped back - to - front .
     const ORIENTATION_8 = 8;
 
-    public function fix(&$image, $orientation)
+    /**
+     * Fix the orientation from an image
+     * @param $image is a ressource image created with imagecreatefromjpg
+     * @param $orientation is an integer
+     * 
+     */
+    public static function fixImage(&$image, $orientation)
     {
         if (in_array($orientation, [3, 4])) {
             $image = imagerotate($image, 180, 0);

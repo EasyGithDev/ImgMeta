@@ -37,11 +37,11 @@ class ExifTags
     const ImageDescription = '0x010e';
     const Make = '0x010f';
     const Model = '0x0110';
-    const StripOffsets  = '0x0111';
+    const StripOffsets = '0x0111';
     const Orientation = '0x0112';
     const SamplesPerPixel = '0x0115';
     const RowsPerStrip = '0x0116';
-    const StripByteCounts  = '0x0117';
+    const StripByteCounts = '0x0117';
     const MinSampleValue = '0x0118';
     const MaxSampleValue = '0x0119';
     const XResolution = '0x011a';
@@ -76,7 +76,7 @@ class ExifTags
     const BadFaxLines = '0x0146';
     const CleanFaxData = '0x0147';
     const ConsecutiveBadFaxLines = '0x0148';
-    const SubIFD  = '0x014a';
+    const SubIFD = '0x014a';
     const InkSet = '0x014c';
     const InkNames = '0x014d';
     const NumberofInks = '0x014e';
@@ -103,8 +103,8 @@ class ExifTags
     const DefaultImageColor = '0x01b2';
     const T82Options = '0x01b3';
     const JPEGProc = '0x0200';
-    const ThumbnailOffset  = '0x0201';
-    const ThumbnailLength  = '0x0202';
+    const ThumbnailOffset = '0x0201';
+    const ThumbnailLength = '0x0202';
     const JPEGRestartInterval = '0x0203';
     const JPEGLosslessPredictors = '0x0205';
     const JPEGPointTransforms = '0x0206';
@@ -275,7 +275,7 @@ class ExifTags
     const CIP3Sheet = '0x923b';
     const CIP3Side = '0x923c';
     const StoNits = '0x923f';
-    const MakerNoteApple  = '0x927c';
+    const MakerNoteApple = '0x927c';
     const UserComment = '0x9286';
     const SubSecTime = '0x9290';
     const SubSecTimeOriginal = '0x9291';
@@ -392,7 +392,7 @@ class ExifTags
     const ChromaBlurRadius = '0xc631';
     const AntiAliasStrength = '0xc632';
     const ShadowScale = '0xc633';
-    const SR2Private  = '0xc634';
+    const SR2Private = '0xc634';
     const MakerNoteSafety = '0xc635';
     const RawImageSegmentation = '0xc640';
     const CalibrationIlluminant1 = '0xc65a';
@@ -470,4 +470,38 @@ class ExifTags
     const Brightness = '0xfe53';
     const Smoothness = '0xfe57';
     const MoireFilter = '0xfe58';
+
+
+    const GPSVersionID = '0x0000';
+    const GPSLatitudeRef = '0x0001';
+    const GPSLatitude = '0x0002';
+    const GPSLongitudeRef = '0x0003';
+    const GPSLongitude = '0x0004';
+    const GPSAltitudeRef = '0x0005';
+    const GPSAltitude = '0x0006';
+    const GPSTimeStamp = '0x0007';
+    const GPSSatellites = '0x0008';
+    const GPSStatus = '0x0009';
+    const GPSMeasureMode = '0x000a';
+    const GPSDOP = '0x000b';
+    const GPSSpeedRef = '0x000c';
+    const GPSSpeed = '0x000d';
+    const GPSTrackRef = '0x000e';
+    const GPSTrack = '0x000f';
+    const GPSImgDirectionRef = '0x0010';
+    const GPSImgDirection = '0x0011';
+    const GPSMapDatum = '0x0012';
+    const GPSDestLatitudeRef = '0x0013';
+    const GPSDestLatitude = '0x0014';
+    const GPSDestLongitudeRef = '0x0015';
+    const GPSDestLongitude = '0x0016';
+    const GPSDestBearingRef = '0x0017';
+    const GPSDestBearing = '0x0018';
+    const GPSDestDistanceRef = '0x0019';
+    const GPSDestDistance = '0x001a';
+    const GPSProcessingMethod = '0x001b';
+    const GPSAreaInformation = '0x001c';
+    const GPSDateStamp = '0x001d';
+    const GPSDifferential = '0x001e';
+    const GPSHPositioningError = '0x001f';
 }

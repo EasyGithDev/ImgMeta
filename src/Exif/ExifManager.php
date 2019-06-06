@@ -70,7 +70,8 @@ class ExifManager extends AbstractManager
             return false;
         }
 
-        if (($latitude = $this->fetch('GPSLatitude')) !== false && ($longitude = $this->fetch('GPSLongitude')) !== false) {
+
+        if (($latitude = $this->fetch(ExifTags::GPSLatitude)) !== false && ($longitude = $this->fetch(ExifTags::GPSLongitude)) !== false) {
             return [
                 'GPSLatitude' => $latitude,
                 'GPSLongitude' => $longitude,
@@ -78,6 +79,21 @@ class ExifManager extends AbstractManager
         }
 
         return false;
+    }
+
+
+    public function getThumbnail()
+    {
+
+        if (!$this->hasMeta) {
+            return false;
+        }
+
+        if ($this->fetch(ExifTags::ThumbnailLength ) === false) {
+            return false;
+        }
+
+        return exif_thumbnail($this->stream, $width, $height, $type);
     }
 
     protected function array_flatten($array, $k = '')
