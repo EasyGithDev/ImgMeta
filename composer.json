@@ -1,6 +1,7 @@
 {
     "name": "easygithdev/imgmeta",
     "description": "Wrapper to access Exif and IPTC data from an image",
+    "keywords": ["php", "exif", "iptc", "metas data"],
     "type": "library",
     "license": "GNU General Public License v3.0",
     "authors": [
