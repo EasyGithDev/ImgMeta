@@ -1,19 +1,31 @@
 # ImgMeta
+
 Wrapper to access Exif and IPTC data from an image.
 
+### Installing
 
+Installation is quite typical - with composer:
 
+```
+Give the example
+```
+
+## How to use
+
+Define a stream. The stream is a file, a base64 string or an Url :
+
+```
 $stream = 'image.jpg';
-
-OR
-
+$stream = 'data:image/jpeg;base64,iVBOR....';
 $stream = 'http://domain/image.jpg';
+```
 
+Accessing to all the metas like this :
 
-### Exif and Iptc
+```
 $imgData = new ImgData();
-
-dump($imgData->read($stream)->getMetas($stream));
+$metas = $imgData->read($stream)->getMetas();
+```
 
 ### Exif
 
@@ -70,5 +82,3 @@ dump($iptcManager->fetch(IptcTags::Country_PrimaryLocationName));
 
 #### Fetch one tag, datas are originals
 dump($iptcManager->fetchAll(IptcTags::Country_PrimaryLocationName));
-
-
