@@ -27,58 +27,81 @@ $imgData = new ImgData();
 $metas = $imgData->read($stream)->getMetas();
 ```
 
-### Exif
+### Working with Exif only
 
-#### Working with Exif only
+Get all the exif datas :
+
+```
 $imgData = new ImgData();
-
 $exifManager = $imgData->createExifManager();
-
 $exifManager->read(ExifReader::getReader($stream));
+$exifManager->getMetas();
+```
 
-dump($exifManager->getMetas());
+Fetch one tag :
 
-#### Fetch one tag
-dump($exifManager->fetch(ExifTags::Copyright));
+```
+$exifManager->fetch(ExifTags::Copyright);
+$exifManager->fetch('Copyright');
+```
 
-dump($exifManager->fetch('Copyright'));
+Fetch GPS infos :
 
-#### Fetch GPS infos
+```
 $latitude = $exifManager->fetch('GPSLatitude');
-
 $longitude = $exifManager->fetch('GPSLongitude');
+```
 
-dump($latitude, ' ', $longitude);
+Using helper to get the GPS infos :
 
-#### Using helper
-dump($exifManager->getPosition());
+```
+$exifManager->getPosition();
+```
 
+### Working on IPTC only
 
-### IPTC 
-
-#### Working on IPTC only
+```
 $imgData = new ImgData();
-
 $iptcManager = $imgData->createIptcManager();
-
 $iptcManager->read(IptcReader::getReader($stream));
+```
 
+Get IPTC default format :
 
-#### Get IPTC default format
-dump($iptcManager->getMetas());
+```
+$iptcManager->getMetas();
+```
 
-#### Get IPTC by KEY
+Get IPTC by Key :
+
+```
 dump($iptcManager->getMetasByKey());
+```
 
-#### Get IPTC by name
+Get IPTC by Name :
+
+```
 dump($iptcManager->getMetasByName());
+```
 
-#### Get IPTC by name with all keys
-dump($iptcManager->getAssocMetas(IptcManager::META_BY_NAME, true));
+Get IPTC by name with all keys :
 
+```
+$iptcManager->getAssocMetas(IptcManager::META_BY_NAME, true);
+```
 
-#### Fetch one tag, datas are flatten
-dump($iptcManager->fetch(IptcTags::Country_PrimaryLocationName));
+Fetch one tag, datas are flatten :
 
-#### Fetch one tag, datas are originals
-dump($iptcManager->fetchAll(IptcTags::Country_PrimaryLocationName));
+```
+$iptcManager->fetch(IptcTags::Country_PrimaryLocationName);
+```
+
+Fetch one tag, datas are originals :
+
+```
+$iptcManager->fetchAll(IptcTags::Country_PrimaryLocationName);
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for deta
