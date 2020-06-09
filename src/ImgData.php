@@ -49,13 +49,24 @@ class ImgData
         return $this->iptc;
     }
 
-    public function createExifManager()
+    public function createManager($managerType)
     {
-        return FactoryManager::getManager(FactoryManager::EXIF);
+        return FactoryManager::getManager($managerType);
     }
 
-    public function createIptcManager()
+    public function __call($name, $arguments)
     {
-        return FactoryManager::getManager(FactoryManager::IPTC);
+        if ($name == 'exif') {
+            return $this->getExif()->fetch($arguments[0]);
+        }
+        if ($name == 'iptc') {
+            return $this->getIptc()->fetch($arguments[0]);
+        }
+        if ($name == 'createExifManager') {
+            return $this->createManager(FactoryManager::EXIF);
+        }
+        if ($name == 'createIptcManager') {
+            return $this->createManager(FactoryManager::IPTC);
+        }
     }
 }

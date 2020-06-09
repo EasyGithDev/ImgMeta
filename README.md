@@ -44,6 +44,12 @@ $imgData->read($stream)->getExif()->fetch(ExifTags::Copyright);
 $imgData->read($stream)->getIptc()->fetch(IptcTags::City);
 ```
 
+Or you can use the quick acces :
+```
+(new ImgData())->read($stream)->exif('Copyright');
+(new ImgData())->read($stream)->iptc('City');
+```
+
 ### Working with EXIF only
 
 Get all the datas :
