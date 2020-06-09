@@ -7,10 +7,20 @@ Wrapper to access Exif and IPTC data from an image.
 Installation is quite typical - with composer:
 
 ```
-Give the example
+composer require easygithdev/imgmeta:dev-master
 ```
 
 ## How to use
+
+Include the autoload, if you need.
+
+```
+<?php
+
+require 'vendor/autoload.php';
+
+use ImgMeta\ImgData;
+```
 
 Define a stream. The stream is a file, a base64 string or an Url :
 
@@ -27,9 +37,16 @@ $imgData = new ImgData();
 $metas = $imgData->read($stream)->getMetas();
 ```
 
-### Working with Exif only
+Fetching the EXIF or IPTC tags :
 
-Get all the exif datas :
+```
+$imgData->read($stream)->getExif()->fetch(ExifTags::Copyright);
+$imgData->read($stream)->getIptc()->fetch(IptcTags::City);
+```
+
+### Working with EXIF only
+
+Get all the datas :
 
 ```
 $imgData = new ImgData();
@@ -42,10 +59,15 @@ Fetch one tag :
 
 ```
 $exifManager->fetch(ExifTags::Copyright);
+```
+
+Or :
+
+```
 $exifManager->fetch('Copyright');
 ```
 
-Fetch GPS infos :
+For example to fetch the GPS informations :
 
 ```
 $latitude = $exifManager->fetch('GPSLatitude');
@@ -75,13 +97,13 @@ $iptcManager->getMetas();
 Get IPTC by Key :
 
 ```
-dump($iptcManager->getMetasByKey());
+$iptcManager->getMetasByKey();
 ```
 
 Get IPTC by Name :
 
 ```
-dump($iptcManager->getMetasByName());
+$iptcManager->getMetasByName();
 ```
 
 Get IPTC by name with all keys :
@@ -104,4 +126,4 @@ $iptcManager->fetchAll(IptcTags::Country_PrimaryLocationName);
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for deta
+This project is licensed under GNU license - see the [LICENSE.md](LICENSE.md) file for deta
