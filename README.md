@@ -7,7 +7,7 @@ Wrapper to access Exif and IPTC data from an image.
 Installation is quite typical - with composer:
 
 ```
-composer require easygithdev/imgmeta:dev-master
+composer require easygithdev/imgmeta
 ```
 
 ## How to use
@@ -86,7 +86,7 @@ Using helper to get the GPS infos :
 $exifManager->getPosition();
 ```
 
-### Working on IPTC only
+### Working with IPTC only
 
 ```
 $imgData = new ImgData();
