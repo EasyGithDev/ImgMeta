@@ -132,4 +132,4 @@ $iptcManager->fetchAll(IptcTags::Country_PrimaryLocationName);
 
 ## License
 
-This project is licensed under GNU license - see the [LICENSE.md](LICENSE.md) file for deta
+This project is licensed under GNU license - see the [LICENSE](LICENSE) file for deta
